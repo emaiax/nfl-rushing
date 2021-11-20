@@ -41,18 +41,14 @@ defmodule NFLRushing.MixProject do
       {:phoenix_live_view, "~> 0.16.0"},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:plug_cowboy, "~> 2.5"},
-
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
-
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-
       {:jason, "~> 1.2"},
       {:gettext, "~> 0.18"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
@@ -67,7 +63,11 @@ defmodule NFLRushing.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      ci: ["credo", "test"],
+      ci: [
+        "format --check-formatted",
+        "credo",
+        "test"
+      ],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
