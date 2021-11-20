@@ -10,7 +10,10 @@ defmodule NFLRushing.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        ci: :test
+      ]
     ]
   end
 
@@ -51,7 +54,8 @@ defmodule NFLRushing.MixProject do
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
 
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_reload, "~> 1.2", only: :dev}
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -63,6 +67,7 @@ defmodule NFLRushing.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      ci: ["credo", "test"],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
