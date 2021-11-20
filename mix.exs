@@ -11,9 +11,11 @@ defmodule NFLRushing.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         ci: :test,
-        fast_ci: :test
+        fast_ci: :test,
+        "coveralls.html": :test
       ]
     ]
   end
@@ -53,7 +55,8 @@ defmodule NFLRushing.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:sobelow, "~> 0.11.1", only: :test, runtime: false},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.14.4", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -74,7 +77,7 @@ defmodule NFLRushing.MixProject do
       fast_ci: [
         "credo --strict",
         "sobelow -i Config.HTTPS --skip --verbose --exit",
-        "test"
+        "coveralls.html --raise --slowest 10"
       ],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
