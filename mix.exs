@@ -66,6 +66,7 @@ defmodule NFLRushing.MixProject do
       ci: [
         "format --check-formatted",
         "credo --strict",
+        "compile --warnings-as-errors --all-warnings",
         "test"
       ],
       setup: ["deps.get", "ecto.setup"],
