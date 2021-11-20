@@ -12,7 +12,8 @@ defmodule NFLRushing.MixProject do
       aliases: aliases(),
       deps: deps(),
       preferred_cli_env: [
-        ci: :test
+        ci: :test,
+        fast_ci: :test
       ]
     ]
   end
@@ -64,9 +65,13 @@ defmodule NFLRushing.MixProject do
   defp aliases do
     [
       ci: [
+        "clean",
         "format --check-formatted",
-        "credo --strict",
         "compile --warnings-as-errors --all-warnings",
+        "fast_ci"
+      ],
+      fast_ci: [
+        "credo --strict",
         "test"
       ],
       setup: ["deps.get", "ecto.setup"],
