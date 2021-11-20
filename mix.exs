@@ -52,6 +52,7 @@ defmodule NFLRushing.MixProject do
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:sobelow, "~> 0.11.1", only: :test, runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
@@ -72,6 +73,7 @@ defmodule NFLRushing.MixProject do
       ],
       fast_ci: [
         "credo --strict",
+        "sobelow -i Config.HTTPS --skip --verbose --exit",
         "test"
       ],
       setup: ["deps.get", "ecto.setup"],
